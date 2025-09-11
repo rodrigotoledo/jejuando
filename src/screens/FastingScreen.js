@@ -90,8 +90,8 @@ const FastingScreen = () => {
     setFastingEnd(end);
     setDatePickerValue(now.toDate());
     saveFastingTimes(now, end);
-    showNotification('Início do Jejum', 'Seu jejum começou agora!');
-    scheduleNotification('Fim do Jejum', 'Seu jejum terminou! Hora de comer.', end.toDate());
+    showNotification('Start Fasting', 'Your fast has started now!');
+    scheduleNotification('End Fasting', 'Your fast is over!Eating time.', end.toDate());
   };
 
   const calculateTimeLeft = () => {
@@ -100,9 +100,9 @@ const FastingScreen = () => {
     if (diff > 0) {
       const hours = Math.floor(diff / 3600);
       const minutes = Math.floor((diff % 3600) / 60);
-      setTimeLeft(`${hours}h ${minutes}m restantes`);
+      setTimeLeft(`${hours}h ${minutes}m remaining`);
     } else {
-      setTimeLeft('Jejum concluído!');
+      setTimeLeft('Fasting completed!');
       setFill(100);
     }
   };
@@ -133,7 +133,7 @@ const FastingScreen = () => {
   return (
     <Surface style={[styles.container, { backgroundColor: colors.background }]}>
       <Text variant="headlineMedium" style={{ color: colors.primary, marginBottom: 24 }}>
-        Jejum
+        Intermittent Fasting
       </Text>
 
       <AnimatedCircularProgress
@@ -163,7 +163,7 @@ const FastingScreen = () => {
             }}
             style={{ marginTop: 12 }}
           >
-            Início: {fastingStart ? fastingStart.format('HH:mm') : '--'} | Alterar Início
+            Start: {fastingStart ? fastingStart.format('HH:mm') : '--'} | Change start
           </Button>
         </View>
       )}
@@ -196,7 +196,7 @@ const FastingScreen = () => {
         onPress={() => startFasting(Number(fastingHours))}
         style={{ marginTop: 16 }}
       >
-        Iniciar Jejum ({fastingHours}h)
+        Start Intermittent Fasting with {fastingHours}h
       </Button>
     </Surface>
   );

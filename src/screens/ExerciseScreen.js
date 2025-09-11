@@ -33,7 +33,7 @@ const ExerciseScreen = () => {
       const profile = await AsyncStorage.getItem('userProfile');
       if (profile) setUserProfile(JSON.parse(profile));
     } catch (e) {
-      console.error('Erro ao carregar perfil:', e);
+      console.error('Error when loading profile:', e);
     } finally {
       setLoading(false);
     }
@@ -44,7 +44,7 @@ const ExerciseScreen = () => {
       const plan = await AsyncStorage.getItem('exercisePlan');
       if (plan) setExercisePlan(JSON.parse(plan));
     } catch (e) {
-      console.error('Erro ao carregar plano:', e);
+      console.error('Error when loading plan:', e);
     }
   };
 
@@ -79,6 +79,7 @@ Requisitos:
 - Formato JSON
 - Estrutura: { plan: [ { day, activity, duration, intensity } ], estimatedTimeToGoal }
 - O plano deve ter pelo menos 7 dias variando atividades.
+- DEVE SER EM INGLES
 `;
 
       const res = await axios.post(
@@ -115,7 +116,7 @@ Requisitos:
   return (
     <View className="flex-1 p-4 bg-background">
       <Text variant="headlineMedium" className="mb-4 text-primary">
-        Exercícios
+        Exercises
       </Text>
 
       {/* Input + botão adicionar */}
@@ -125,7 +126,7 @@ Requisitos:
             value={input}
             onChangeText={setInput}
             mode="outlined"
-            placeholder="Ex: Caminhar 30min pela manhã"
+            placeholder="Ex: Walk 30min in the morning"
           />
         </View>
         <TouchableOpacity
@@ -157,22 +158,22 @@ Requisitos:
         onPress={generateExercisePlan}
         className="mb-4 rounded-lg"
       >
-        Gerar Plano de Exercícios
+        Generate exercise plan
       </Button>
 
       {/* Mostra o plano gerado */}
       {exercisePlan && (
         <ScrollView className="mt-4">
           <Card className="mb-4">
-            <Card.Title title="Plano de Exercícios" />
+            <Card.Title title="Exercise plan" />
             <Card.Content>
               {exercisePlan.plan.map((p, i) => (
                 <Text key={i} className="mb-1">
-                  Dia {p.day}: {p.activity} ({p.duration}) - Intensidade: {p.intensity}
+                  Is {p.day}: {p.activity} ({p.duration}) - Intensity: {p.intensity}
                 </Text>
               ))}
               <Text variant="bodyLarge" style={{ color: colors.primary, fontWeight: 'bold' }}>
-                Estimativa para atingir meta: {exercisePlan.estimatedTimeToGoal}
+                Estimation to reach goal: {exercisePlan.estimatedTimeToGoal}
               </Text>
             </Card.Content>
           </Card>

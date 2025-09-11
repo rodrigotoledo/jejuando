@@ -130,14 +130,14 @@ const DietScreen = ({ navigation }) => {
     - ${profile.mealsPerDay} refeições principais
     - Calorias totais baseadas no déficit necessário para atingir o peso alvo
     
-    Retorne APENAS o JSON, sem comentários ou markdown.`;
+    Retorne APENAS o JSON, sem comentários ou markdown MAS TEM QUE SER EM INGLES.`;
   };
 
   const getActivityLevelText = (level) => {
     const levels = {
-      sedentary: 'Sedentário',
-      moderate: 'Moderadamente ativo',
-      active: 'Muito ativo'
+      sedentary: 'Sedentary',
+      moderate: 'Moderately active',
+      active: 'Very active'
     };
     return levels[level] || level;
   };
@@ -172,7 +172,7 @@ const DietScreen = ({ navigation }) => {
       if (jsonMatch) {
         return JSON.parse(jsonMatch[1]);
       }
-      throw new Error('Resposta do GPT em formato inválido');
+      throw new Error('GPT Response in Invalid Format');
     }
   };
 
@@ -183,11 +183,11 @@ const DietScreen = ({ navigation }) => {
       meals: [
         {
           time: '08:00',
-          name: 'Café da Manhã',
+          name: 'Breakfast',
           items: [
-            '2 ovos mexidos (140 cal, 12g proteína)',
-            '1 fatia pão integral (80 cal, 3g proteína)',
-            '1/4 abacate (80 cal, 7g gordura)'
+            '2 scrambled eggs (140 cal, 12g protein)',
+            '1 slice whole bread (80 cal, 3g protein)',
+            '1/4 Avocado (80 cal, 7g fat)'
           ],
           calories: 300,
           withOrlistate: false
@@ -218,7 +218,7 @@ const DietScreen = ({ navigation }) => {
       JSON.stringify(updatedPlan)
     );
   } catch (error) {
-    console.error('Erro ao salvar plano:', error);
+    console.error('Error saving plan:', error);
   }
 };
 
@@ -226,7 +226,7 @@ const DietScreen = ({ navigation }) => {
     return (
       <View className="flex-1 justify-center items-center">
         <ActivityIndicator animating={true} color="#37474F" size="large" />
-        <Text className="mt-4 text-gray-600">Gerando seu plano de dieta...</Text>
+        <Text className="mt-4 text-gray-600">Generating your diet plan...</Text>
       </View>
     );
   }
@@ -234,7 +234,7 @@ const DietScreen = ({ navigation }) => {
     if (!userProfile) {
     return (
       <View className="flex-1 justify-center items-center">
-        <Text className="text-lg text-gray-700">Perfil não encontrado</Text>
+        <Text className="text-lg text-gray-700">Profile not found</Text>
         <Button 
           mode="contained"
           onPress={() => navigation.navigate('Profile')}
@@ -261,12 +261,12 @@ const DietScreen = ({ navigation }) => {
       {dietPlan && (
       <>
         <Card className="py-4 my-4">
-          <Text className="text-xl font-bold text-center">Resumo Nutricional Diário</Text>
-          <View className="flex-row justify-between p-4">
-            <NutritionInfo label="Calorias" value={dietPlan.totalCalories} unit="cal" />
-            <NutritionInfo label="Proteínas" value={dietPlan.totalProtein} unit="g" />
-            <NutritionInfo label="Carboidratos" value={dietPlan.totalCarbs} unit="g" />
-            <NutritionInfo label="Gorduras" value={dietPlan.totalFat} unit="g" />
+          <Text className="text-xl font-bold text-center">Daily Nutrition Summary</Text>
+          <View className="flex-row justify-between p-4 gap-4">
+            <NutritionInfo label="Calories" value={dietPlan.totalCalories} unit="cal" />
+            <NutritionInfo label="Proteins" value={dietPlan.totalProtein} unit="g" />
+            <NutritionInfo label="Carbohydrates" value={dietPlan.totalCarbs} unit="g" />
+            <NutritionInfo label="Fat" value={dietPlan.totalFat} unit="g" />
           </View>
         </Card>
 
@@ -276,8 +276,8 @@ const DietScreen = ({ navigation }) => {
           >
             {dietPlan?.meals?.map((meal, index) => (
               <Card key={index} className="mb-4 bg-slate-600" theme={{ colors: { primary: 'green' } }}>
-                <Card.Title title={`${meal.time} - ${meal.name}`} subtitle={`${meal.calories} cal | ${meal.withOrlistate ? 'Com Orlistate' : 'Sem Orlistate'}`}
-                  right={() => ( <CheckBox label="Realizada!"  checked={!!meal.completed} onChange={() => toggleMealCompleted(index)} color="#37474F" /> )}
+                <Card.Title title={`${meal.time} - ${meal.name}`} subtitle={`${meal.calories} cal | ${meal.withOrlistate ? 'With Orlistate' : 'Without Orlistate'}`}
+                  right={() => ( <CheckBox label="Check!"  checked={!!meal.completed} onChange={() => toggleMealCompleted(index)} color="#37474F" /> )}
                 />
                 <Card.Content>
                   {meal.items.map((item, i) => (
@@ -293,7 +293,7 @@ const DietScreen = ({ navigation }) => {
         onPress={generateDietPlan} className="flex-row items-center justify-center bg-amber-600 px-4 py-2 rounded-full my-4"
       >
           <MaterialDesignIcons name="refresh" size={20} color="#fff"  />
-          <Text className="text-white ml-2">Gerar Novo Plano</Text>
+          <Text className="text-white ml-2">Generate a new plan</Text>
       </TouchableOpacity>
 
   </View>

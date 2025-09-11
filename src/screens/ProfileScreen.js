@@ -27,7 +27,7 @@ const ProfileScreen = () => {
   const { colors } = useTheme();
   const mountedRef = useRef(true);
 
-  // começa como null para mostrar "Carregando…" até decidir defaults ou storage
+  // starts as null to show "Loading…" until defaults or storage is set
   const [userData, setUserData] = useState(null);
 
   const [errors, setErrors] = useState({
@@ -37,7 +37,7 @@ const ProfileScreen = () => {
     height: false,
   });
 
-  // Carregar do AsyncStorage (ou defaults)
+  // Load from AsyncStorage (or defaults)
   useEffect(() => {
     const load = async () => {
       try {
@@ -62,7 +62,7 @@ const ProfileScreen = () => {
           setUserData(DEFAULT_PROFILE);
         }
       } catch (e) {
-        console.warn('Erro ao carregar perfil:', e);
+        console.warn('Error loading profile:', e);
         setUserData(DEFAULT_PROFILE);
       }
     };
@@ -95,7 +95,7 @@ const ProfileScreen = () => {
 
   const saveProfile = async () => {
     if (!userData || !validateForm()) {
-      Alert.alert('Dados incompletos', 'Por favor, preencha todos os campos obrigatórios');
+      Alert.alert('Incomplete data', 'Please fill in all required fields');
       return;
     }
     try {
@@ -114,16 +114,16 @@ const ProfileScreen = () => {
 
       navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
     } catch (error) {
-      console.error('Erro ao salvar perfil:', error);
-      Alert.alert('Erro', 'Não foi possível salvar seu perfil');
+      console.error('Error saving profile:', error);
+      Alert.alert('Error', 'Could not save your profile');
     }
   };
 
-  // Loading simples enquanto decide defaults vs storage
+  // Simple loading state
   if (!userData) {
     return (
       <ScrollView style={{ flex: 1, padding: 16, backgroundColor: colors.background }}>
-        <Text style={{ textAlign: 'center', marginTop: 24 }}>Carregando…</Text>
+        <Text style={{ textAlign: 'center', marginTop: 24 }}>Loading…</Text>
       </ScrollView>
     );
   }
@@ -134,16 +134,16 @@ const ProfileScreen = () => {
       contentContainerStyle={{ paddingBottom: 24 }}
     >
       <Text variant="headlineMedium" style={{ textAlign: 'center', marginBottom: 24, color: colors.primary, marginTop: 16 }}>
-        Seu Perfil
+        Your Profile
       </Text>
 
-      {/* Dados Básicos */}
+      {/* Personal Info */}
       <Text variant="titleSmall" style={{ marginBottom: 8, color: colors.primary }}>
-        Informações Pessoais
+        Personal Information
       </Text>
 
       <TextInput
-        label="Nome completo *"
+        label="Full name *"
         value={userData.name}
         onChangeText={(text) => handleChange('name', text)}
         mode="outlined"
@@ -151,7 +151,7 @@ const ProfileScreen = () => {
       />
 
       <TextInput
-        label="Idade *"
+        label="Age *"
         value={userData.age}
         onChangeText={(text) => handleChange('age', text.replace(/[^0-9]/g, ''))}
         mode="outlined"
@@ -159,32 +159,32 @@ const ProfileScreen = () => {
         error={errors.age}
         style={{ marginBottom: 12 }}
       />
-      {errors.age && <HelperText type="error">Idade inválida</HelperText>}
+      {errors.age && <HelperText type="error">Invalid age</HelperText>}
 
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
-        <Text style={{ marginRight: 16 }}>Sexo:</Text>
+        <Text style={{ marginRight: 16 }}>Gender:</Text>
         <RadioButton.Group onValueChange={(v) => handleChange('gender', v)} value={userData.gender}>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <RadioButton value="male" />
-              <Text>Masculino</Text>
+              <Text>Male</Text>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
               <RadioButton value="female" />
-              <Text>Feminino</Text>
+              <Text>Female</Text>
             </View>
           </View>
         </RadioButton.Group>
       </View>
 
-      {/* Dados Corporais */}
+      {/* Body Measurements */}
       <Text variant="titleSmall" style={{ marginBottom: 8, color: colors.primary }}>
-        Medidas Corporais
+        Body Measurements
       </Text>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <TextInput
-          label="Peso atual (kg) *"
+          label="Current weight (kg) *"
           value={userData.currentWeight}
           onChangeText={(text) => handleChange('currentWeight', text.replace(/[^0-9.]/g, ''))}
           mode="outlined"
@@ -194,7 +194,7 @@ const ProfileScreen = () => {
         />
 
         <TextInput
-          label="Peso alvo (kg) *"
+          label="Target weight (kg) *"
           value={userData.targetWeight}
           onChangeText={(text) => handleChange('targetWeight', text.replace(/[^0-9.]/g, ''))}
           mode="outlined"
@@ -205,7 +205,7 @@ const ProfileScreen = () => {
       </View>
 
       <TextInput
-        label="Altura (cm) *"
+        label="Height (cm) *"
         value={userData.height}
         onChangeText={(text) => handleChange('height', text.replace(/[^0-9]/g, ''))}
         mode="outlined"
@@ -213,15 +213,15 @@ const ProfileScreen = () => {
         error={errors.height}
         style={{ marginBottom: 12 }}
       />
-      {errors.height && <HelperText type="error">Altura inválida</HelperText>}
+      {errors.height && <HelperText type="error">Invalid height</HelperText>}
 
-      {/* Preferências Alimentares */}
+      {/* Dietary Preferences */}
       <Text variant="titleSmall" style={{ marginBottom: 8, color: colors.primary }}>
-        Preferências Alimentares
+        Dietary Preferences
       </Text>
 
       <TextInput
-        label="Refeições por dia *"
+        label="Meals per day *"
         value={userData.mealsPerDay}
         onChangeText={(text) => handleChange('mealsPerDay', text.replace(/[^0-9]/g, ''))}
         mode="outlined"
@@ -230,45 +230,45 @@ const ProfileScreen = () => {
       />
 
       <TextInput
-        label="Restrições alimentares"
+        label="Dietary restrictions"
         value={userData.dietaryRestrictions}
         onChangeText={(text) => handleChange('dietaryRestrictions', text)}
         mode="outlined"
         style={{ marginBottom: 12 }}
-        placeholder="Ex: Vegetariano, intolerância a lactose"
+        placeholder="E.g.: Vegetarian, lactose intolerance"
       />
 
       <TextInput
-        label="Condições de saúde"
+        label="Health conditions"
         value={userData.healthConditions}
         onChangeText={(text) => handleChange('healthConditions', text)}
         mode="outlined"
         style={{ marginBottom: 16 }}
-        placeholder="Ex: Diabetes, hipertensão"
+        placeholder="E.g.: Diabetes, hypertension"
       />
 
-      {/* Nível de Atividade */}
+      {/* Fitness Level */}
       <Text variant="titleSmall" style={{ marginBottom: 8, color: colors.primary }}>
-        Nível de Atividade Física
+        Physical Activity Level
       </Text>
 
       <RadioButton.Group onValueChange={(v) => handleChange('fitnessLevel', v)} value={userData.fitnessLevel}>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
           <RadioButton value="sedentary" />
-          <Text>Sedentário (pouco ou nenhum exercício)</Text>
+          <Text>Sedentary (little or no exercise)</Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
           <RadioButton value="moderate" />
-          <Text>Moderadamente ativo (exercício 1-3x/semana)</Text>
+          <Text>Moderately active (exercise 1–3x/week)</Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <RadioButton value="active" />
-          <Text>Muito ativo (exercício 4+ vezes/semana)</Text>
+          <Text>Very active (exercise 4+ times/week)</Text>
         </View>
       </RadioButton.Group>
 
       <Button mode="contained" onPress={saveProfile} style={{ marginTop: 24 }} disabled={!validateForm()}>
-        Salvar Perfil
+        Save Profile
       </Button>
     </ScrollView>
   );
