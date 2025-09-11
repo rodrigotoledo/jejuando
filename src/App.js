@@ -53,11 +53,11 @@ const MainTabs = () => {
         },
       })}
     >
-      <Tab.Screen name="Fast" options={{ tabBarLabel: 'Jejum' }} component={FastingScreen} />
-      <Tab.Screen name="Diet" options={{ tabBarLabel: 'Dieta' }} component={DietScreen} />
-      <Tab.Screen name="Exercises" options={{ tabBarLabel: 'Exercícios' }} component={ExerciseScreen} />
-      <Tab.Screen name="InternalProfile" options={{ tabBarLabel: 'Dados' }} component={ProfileScreen} />
-      <Tab.Screen name="Logout" options={{ tabBarLabel: 'Sair' }} component={LogoutScreen} />
+      <Tab.Screen name="Fast" options={{ tabBarLabel: 'Intermittent Fasting' }} component={FastingScreen} />
+      <Tab.Screen name="Diet" options={{ tabBarLabel: 'Diet' }} component={DietScreen} />
+      <Tab.Screen name="Exercises" options={{ tabBarLabel: 'Exercises' }} component={ExerciseScreen} />
+      <Tab.Screen name="InternalProfile" options={{ tabBarLabel: 'Data' }} component={ProfileScreen} />
+      <Tab.Screen name="Logout" options={{ tabBarLabel: 'SignOut' }} component={LogoutScreen} />
     </Tab.Navigator>
   );
 };
@@ -94,7 +94,7 @@ const App = () => {
         importance: AndroidImportance.HIGH,
       });
     } catch (error) {
-      console.log('Erro ao configurar notificações:', error);
+      console.log('Error when configuring notifications:', error);
     }
   };
 
@@ -114,7 +114,11 @@ const App = () => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }} edges={['top', 'left', 'right']}>
         <SafeAreaProvider>
-        <StatusBar translucent backgroundColor="translucent" barStyle="dark-content" />
+        <StatusBar
+          translucent={true}
+          backgroundColor="transparent"
+          barStyle="dark-content"
+        />
 
         <PaperProvider theme={paperTheme}>
           <NavigationContainer 

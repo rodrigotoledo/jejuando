@@ -26,7 +26,7 @@ const DietNavigation = ({ selectedDate, setSelectedDate, isFastingDay, userProfi
           {moment(selectedDate).format('DD/MM/YYYY')}
         </Text>
         <Text className="text-sm text-gray-600">
-          {isFastingDay ? 'Dia de Jejum' : 'Dia Normal'} | {userProfile?.mealsPerDay} refeições
+          {isFastingDay ? 'Fasting Day':' Normal Day'} | {userProfile?.mealsPerDay} meals
         </Text>
       </View>
 
