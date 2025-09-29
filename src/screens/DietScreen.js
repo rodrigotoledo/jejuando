@@ -5,10 +5,10 @@ import CheckBox from 'react-native-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import axios from 'axios';
-import { API_GPT_KEY } from '@env';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import DietNavigation from '../components/DietNavigation';
-
+import Config from 'react-native-config'
+import OpenAI from 'openai';
 
 
 const DietScreen = ({ navigation }) => {
@@ -17,6 +17,7 @@ const DietScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
   const [isFastingDay, setIsFastingDay] = useState(false);
+  const openai = new OpenAI({ apiKey: Config.API_GPT_KEY });
 
   const fastingDays = [0, 3]; // Exemplo: Domingo e Quarta
 
@@ -26,6 +27,7 @@ const DietScreen = ({ navigation }) => {
 
 
   useEffect(() => {
+    console.log(Config.API_GPT_KEY);
     if (userProfile) {
       loadDietPlan();
     }
@@ -37,11 +39,11 @@ const DietScreen = ({ navigation }) => {
       if (profile) {
         setUserProfile(JSON.parse(profile));
       } else {
-        Alert.alert('Perfil não encontrado', 'Complete seu perfil primeiro');
+        Alert.alert('Profile not found', 'Complete your profile first');
         navigation.navigate('Profile');
       }
     } catch (error) {
-      console.error('Erro ao carregar perfil:', error);
+      console.error('Error when loading profile:', error);
     }
   };
 
@@ -60,8 +62,8 @@ const DietScreen = ({ navigation }) => {
         await generateDietPlan();
       }
     } catch (error) {
-      console.error('Erro ao carregar plano:', error);
-      Alert.alert('Erro', 'Não foi possível carregar o plano de dieta');
+      console.error('Error when loading plan:', error);
+      Alert.alert('Erro', 'It was not possible to carry the diet plan');
     } finally {
       setLoading(false);
     }
@@ -143,23 +145,15 @@ const DietScreen = ({ navigation }) => {
   };
 
   const callGPTAPI = async (prompt) => {
-    const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
+    const response = await openai.chat.completions.create(
       {
         model: 'gpt-3.5-turbo',
         messages: [{ role: 'user', content: prompt }],
-        response_format: { type: 'json_object' },
         temperature: 0.7
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${API_GPT_KEY}`,
-          'Content-Type': 'application/json'
-        }
       }
     );
     
-    return response.data.choices[0].message.content;
+    return response.choices[0].message.content;
   };
 
   const processGPTResponse = (response) => {

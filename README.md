@@ -12,7 +12,7 @@ To start the Metro dev server, run the following command from the root of your R
 
 ```sh
 # Using npm
-npm start
+npm start --reset-cache
 
 # OR using Yarn
 yarn start
@@ -96,8 +96,7 @@ To learn more about React Native, take a look at the following resources:
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
 
-
-```
+```bash
 adb reverse tcp:8081 tcp:8081
 adb reverse tcp:8080 tcp:8080
 ```

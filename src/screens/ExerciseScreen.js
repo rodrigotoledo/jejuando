@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { API_GPT_KEY } from '@env';
 import {
   Card,
   Button,
@@ -13,6 +12,7 @@ import {
   useTheme,
 } from 'react-native-paper';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import Config from 'react-native-config'
 
 const ExerciseScreen = () => {
   const { colors } = useTheme();
@@ -92,7 +92,7 @@ Requisitos:
         },
         {
           headers: {
-            Authorization: `Bearer ${API_GPT_KEY}`,
+            Authorization: `Bearer ${Config.API_GPT_KEY}`,
             'Content-Type': 'application/json',
           },
         }
