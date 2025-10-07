@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, SectionList, Linking } from 'react-native';
+import { View, Text, SectionList, Linking } from 'react-native';
 import { Card, Button, ActivityIndicator } from 'react-native-paper';
 import AppContainer from '../components/AppContainer';
 import { paperTheme } from '../utils/paperTheme';

@@ -4,7 +4,6 @@ import { Card, Button, ActivityIndicator } from 'react-native-paper';
 import CheckBox from 'react-native-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
-import axios from 'axios';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import DietNavigation from '../components/DietNavigation';
 import Config from 'react-native-config'

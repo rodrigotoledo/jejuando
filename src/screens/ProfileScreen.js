@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, ScrollView, Image } from 'react-native';
-import { Alert, Text, TextInput, Button, useTheme, RadioButton, HelperText } from 'react-native-paper';
+import { View, ScrollView } from 'react-native';
+import { Alert, Text, TextInput, Button, RadioButton, HelperText } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { light } from '../utils/colors';
 import AppContainer from '../components/AppContainer';
+import TextContainer from '../components/TextContainer';
 
 const DEFAULT_PROFILE = {
   name: 'rodrigo',
@@ -135,9 +136,9 @@ const ProfileScreen = () => {
         style={{ flex: 1, padding: 16, backgroundColor: light.background }}
         contentContainerStyle={{ paddingBottom: 24 }}
       >
-        <Text variant="headlineMedium" style={{ textAlign: 'center', marginBottom: 24, color: light.primary, marginTop: 16 }}>
+        <TextContainer>
           Seu Perfil
-        </Text>
+        </TextContainer>
 
         {/* Informações Pessoais */}
         <Text variant="titleSmall" style={{ marginBottom: 8, color: light.primary }}>

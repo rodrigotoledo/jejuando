@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import {  } from "react-native-paper";
 
 export default function AppContainer({ children }) {
   return (

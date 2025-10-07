@@ -8,7 +8,6 @@ import {
   ActivityIndicator,
   Text,
   TextInput,
-  Chip,
   useTheme,
 } from 'react-native-paper';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
