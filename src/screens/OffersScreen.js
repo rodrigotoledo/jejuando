@@ -3,6 +3,7 @@ import { View, Text, FlatList, SectionList, Linking } from 'react-native';
 import { Card, Button, ActivityIndicator } from 'react-native-paper';
 import AppContainer from '../components/AppContainer';
 import { paperTheme } from '../utils/paperTheme';
+import TextContainer from '../components/TextContainer';
 
 // ⚠️ Coloque aqui seu domínio e token do Shopify Storefront
 const SHOPIFY_DOMAIN = "3u5a57-cv.myshopify.com";
@@ -90,9 +91,9 @@ const OffersScreen = () => {
 
   return (
     <AppContainer>
-      <Text className="text-4xl text-center my-4 text-primary font-andada-bold">
+      <TextContainer>
         Ofertas
-      </Text>
+      </TextContainer>
 
       <SectionList
         className="p-2"

@@ -9,6 +9,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { getFastingStage } from '../utils/fastingStages';
 import AppContainer from '../components/AppContainer';
+import TextContainer from '../components/TextContainer';
 
 const FastingScreen = () => {
   const { colors } = useTheme();
@@ -17,27 +18,48 @@ const FastingScreen = () => {
   const [fastingEnd, setFastingEnd] = useState(null);
   const [timeLeft, setTimeLeft] = useState('');
   const [fill, setFill] = useState(0);
-  const [showPicker, setShowPicker] = useState(false);
   const [fastingHours, setFastingHours] = useState("16");
   const [datePickerValue, setDatePickerValue] = useState(new Date());
 
-  const [showDatePicker, setShowDatePicker] = useState(false); // Para data no Android
-  const [showTimePicker, setShowTimePicker] = useState(false); // Para horário no Android
-  const [tempDate, setTempDate] = useState(new Date()); // Data temporária no Android para combinar
+  // Estados para Android
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [tempDate, setTempDate] = useState(new Date());
+  const [preservedTime, setPreservedTime] = useState({ hours: 0, minutes: 0 });
 
-  // Para iOS, reutiliza showPicker (mas renomeei pra showDatetimePicker pra clareza)
+  // Para iOS
   const [showDatetimePicker, setShowDatetimePicker] = useState(false);
 
-  // ... useMemos e outros useEffects iguais ...
+  const elapsedHours = useMemo(() => {
+    if (!fastingStart) return 0;
+    return moment().diff(fastingStart, 'hours', true);
+  }, [fastingStart, timeLeft]);
+
+  const stage = useMemo(() => getFastingStage(elapsedHours), [elapsedHours]);
+
+  // Verifica se algum picker está aberto
+  const showAnyPicker = showDatetimePicker || showDatePicker || showTimePicker;
+
+  useEffect(() => {
+    loadFastingTimes();
+  }, []);
+
+  useEffect(() => {
+    if (!showAnyPicker && fastingStart && fastingEnd) {
+      const interval = setInterval(() => {
+        calculateTimeLeft();
+        calculateProgress();
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [fastingStart, fastingEnd, showAnyPicker]);
 
   // Handler para iOS (datetime único)
   const onChangeDatetime = (event, selectedDate) => {
-    // No iOS, esconde só se uma data foi selecionada (não há "cancel" explícito no onChange)
     if (selectedDate) {
       setShowDatetimePicker(false);
     }
 
-    // Early return se não há data selecionada
     if (!selectedDate) {
       return;
     }
@@ -55,20 +77,28 @@ const FastingScreen = () => {
 
   // Handler para Android - Mudança de data
   const onChangeDate = (event, selectedDate) => {
-    setShowDatePicker(false); // Fecha o date picker
+    setShowDatePicker(false);
 
     if (!selectedDate || event?.type === 'dismissed') {
       return;
     }
 
-    // Atualiza a data temporária e abre o time picker
-    setTempDate(selectedDate);
+    // Combina a nova data com o horário preservado
+    const newTempDate = new Date(
+      selectedDate.getFullYear(),
+      selectedDate.getMonth(),
+      selectedDate.getDate(),
+      preservedTime.hours,
+      preservedTime.minutes,
+      0
+    );
+    setTempDate(newTempDate);
     setShowTimePicker(true);
   };
 
   // Handler para Android - Mudança de horário
   const onChangeTime = (event, selectedDate) => {
-    setShowTimePicker(false); // Fecha o time picker
+    setShowTimePicker(false);
 
     if (!selectedDate || event?.type === 'dismissed') {
       return;
@@ -78,7 +108,7 @@ const FastingScreen = () => {
     const combinedDate = new Date(tempDate);
     combinedDate.setHours(selectedDate.getHours());
     combinedDate.setMinutes(selectedDate.getMinutes());
-    combinedDate.setSeconds(0); // Opcional: zera segundos
+    combinedDate.setSeconds(0);
 
     setDatePickerValue(combinedDate);
 
@@ -91,18 +121,22 @@ const FastingScreen = () => {
     saveFastingTimes(newStart, newEnd);
   };
 
-  // Função para abrir o picker baseado na plataforma (chamada no onPress do botão)
+  // Função para abrir o picker baseado na plataforma
   const openDateTimePicker = () => {
     if (Platform.OS === 'ios') {
       setShowDatetimePicker(true);
     } else {
-      // Android: abre date primeiro
-      setTempDate(datePickerValue); // Usa o valor atual como base
+      // Android: preserva o horário atual e abre date com data atual
+      const hours = datePickerValue.getHours();
+      const minutes = datePickerValue.getMinutes();
+      setPreservedTime({ hours, minutes });
+
+      const dateOnly = new Date(datePickerValue);
+      dateOnly.setHours(0, 0, 0, 0);
+      setTempDate(dateOnly);
       setShowDatePicker(true);
     }
   };
-
-  // ... loadFastingTimes e saveFastingTimes iguais, mas ajustei load pra usar datePickerValue ...
 
   const loadFastingTimes = async () => {
     const start = await AsyncStorage.getItem('fastingStart');
@@ -120,54 +154,6 @@ const FastingScreen = () => {
   const saveFastingTimes = async (start, end) => {
     await AsyncStorage.setItem('fastingStart', start.toISOString());
     await AsyncStorage.setItem('fastingEnd', end.toISOString());
-  };
-
-  const elapsedHours = useMemo(() => {
-    if (!fastingStart) return 0;
-    return moment().diff(fastingStart, 'hours', true);
-  }, [fastingStart, timeLeft]);
-
-  const stage = useMemo(() => getFastingStage(elapsedHours), [elapsedHours]);
-
-  useEffect(() => {
-    loadFastingTimes();
-  }, []);
-
-  useEffect(() => {
-    if (!showPicker && fastingStart && fastingEnd) {
-      const interval = setInterval(() => {
-        calculateTimeLeft();
-        calculateProgress();
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [fastingStart, fastingEnd, showPicker]);
-
-  const onChangeStart = (event, selectedDate) => {
-    // Esconde o picker no Android sempre (ele fecha sozinho após seleção ou cancel)
-    if (Platform.OS === 'android') {
-      setShowPicker(false);
-    }
-
-    // No iOS, esconde só se uma data foi selecionada (não há "cancel" explícito no onChange)
-    if (Platform.OS === 'ios' && selectedDate) {
-      setShowPicker(false);
-    }
-
-    // Early return se não há data selecionada OU se é Android e foi dismissed
-    if (!selectedDate || (Platform.OS === 'android' && event?.type === 'dismissed')) {
-      return;
-    }
-
-    setDatePickerValue(selectedDate);
-
-    const newStart = moment(selectedDate);
-    const hours = Number(fastingHours);
-    const newEnd = newStart.clone().add(hours, 'hours');
-
-    setFastingStart(newStart);
-    setFastingEnd(newEnd);
-    saveFastingTimes(newStart, newEnd);
   };
 
   const startFasting = (hours = 16) => {
@@ -219,9 +205,9 @@ const FastingScreen = () => {
 
   return (
     <AppContainer>
-      <Text className="text-4xl text-center my-4 text-primary font-andada-bold">
+      <TextContainer>
         Jejum Intermitente
-      </Text>
+      </TextContainer>
 
       <View className="flex justify-center items-center my-4">
         <AnimatedCircularProgress
@@ -269,13 +255,13 @@ const FastingScreen = () => {
               <DateTimePicker
                 value={tempDate}
                 mode="date"
-                display="default" // Opcional: ajusta display no Android
+                display="default"
                 onChange={onChangeDate}
               />
             )}
             {showTimePicker && (
               <DateTimePicker
-                value={datePickerValue} // Usa o horário atual como base
+                value={tempDate} // Agora usa tempDate com horário preservado
                 mode="time"
                 is24Hour={true}
                 onChange={onChangeTime}
