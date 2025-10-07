@@ -10,7 +10,7 @@ const LogoutScreen = () => {
       await AsyncStorage.clear();
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Profile' }],
+        routes: [{ name: 'SplashScreen' }],
       });
     };
     doLogout();

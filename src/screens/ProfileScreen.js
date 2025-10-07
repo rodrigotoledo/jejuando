@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, ScrollView } from 'react-native';
-import { Alert, Text, TextInput, Button, useTheme, RadioButton, HelperText } from 'react-native-paper';
+import { Alert, Text, TextInput, Button, RadioButton, HelperText } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import { light } from '../utils/colors';
+import AppContainer from '../components/AppContainer';
+import TextContainer from '../components/TextContainer';
 
 const DEFAULT_PROFILE = {
   name: 'rodrigo',
@@ -24,10 +27,9 @@ const STORAGE_KEYS = {
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  const { colors } = useTheme();
   const mountedRef = useRef(true);
 
-  // starts as null to show "Loading…" until defaults or storage is set
+  // Inicia como null para mostrar "Carregando…" até que os padrões ou armazenamento sejam definidos
   const [userData, setUserData] = useState(null);
 
   const [errors, setErrors] = useState({
@@ -37,7 +39,7 @@ const ProfileScreen = () => {
     height: false,
   });
 
-  // Load from AsyncStorage (or defaults)
+  // Carrega do AsyncStorage (ou padrões)
   useEffect(() => {
     const load = async () => {
       try {
@@ -62,7 +64,7 @@ const ProfileScreen = () => {
           setUserData(DEFAULT_PROFILE);
         }
       } catch (e) {
-        console.warn('Error loading profile:', e);
+        console.warn('Erro ao carregar perfil:', e);
         setUserData(DEFAULT_PROFILE);
       }
     };
@@ -95,7 +97,7 @@ const ProfileScreen = () => {
 
   const saveProfile = async () => {
     if (!userData || !validateForm()) {
-      Alert.alert('Incomplete data', 'Please fill in all required fields');
+      Alert.alert('Dados incompletos', 'Por favor, preencha todos os campos obrigatórios');
       return;
     }
     try {
@@ -114,163 +116,165 @@ const ProfileScreen = () => {
 
       navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
     } catch (error) {
-      console.error('Error saving profile:', error);
-      Alert.alert('Error', 'Could not save your profile');
+      console.error('Erro ao salvar perfil:', error);
+      Alert.alert('Erro', 'Não foi possível salvar seu perfil');
     }
   };
 
-  // Simple loading state
+  // Estado de carregamento simples
   if (!userData) {
     return (
-      <ScrollView style={{ flex: 1, padding: 16, backgroundColor: colors.background }}>
-        <Text style={{ textAlign: 'center', marginTop: 24 }}>Loading…</Text>
+      <ScrollView style={{ flex: 1, padding: 16, backgroundColor: light.background }}>
+        <Text style={{ textAlign: 'center', marginTop: 24 }}>Carregando…</Text>
       </ScrollView>
     );
   }
 
   return (
-    <ScrollView
-      style={{ flex: 1, padding: 16, backgroundColor: colors.background }}
-      contentContainerStyle={{ paddingBottom: 24 }}
-    >
-      <Text variant="headlineMedium" style={{ textAlign: 'center', marginBottom: 24, color: colors.primary, marginTop: 16 }}>
-        Your Profile
-      </Text>
+    <AppContainer>
+      <ScrollView
+        style={{ flex: 1, padding: 16, backgroundColor: light.background }}
+        contentContainerStyle={{ paddingBottom: 24 }}
+      >
+        <TextContainer>
+          Seu Perfil
+        </TextContainer>
 
-      {/* Personal Info */}
-      <Text variant="titleSmall" style={{ marginBottom: 8, color: colors.primary }}>
-        Personal Information
-      </Text>
+        {/* Informações Pessoais */}
+        <Text variant="titleSmall" style={{ marginBottom: 8, color: light.primary }}>
+          Informações Pessoais
+        </Text>
 
-      <TextInput
-        label="Full name *"
-        value={userData.name}
-        onChangeText={(text) => handleChange('name', text)}
-        mode="outlined"
-        style={{ marginBottom: 12 }}
-      />
+        <TextInput
+          label="Nome completo *"
+          value={userData.name}
+          onChangeText={(text) => handleChange('name', text)}
+          mode="outlined"
+          style={{ marginBottom: 12 }}
+        />
 
-      <TextInput
-        label="Age *"
-        value={userData.age}
-        onChangeText={(text) => handleChange('age', text.replace(/[^0-9]/g, ''))}
-        mode="outlined"
-        keyboardType="numeric"
-        error={errors.age}
-        style={{ marginBottom: 12 }}
-      />
-      {errors.age && <HelperText type="error">Invalid age</HelperText>}
+        <TextInput
+          label="Idade *"
+          value={userData.age}
+          onChangeText={(text) => handleChange('age', text.replace(/[^0-9]/g, ''))}
+          mode="outlined"
+          keyboardType="numeric"
+          error={errors.age}
+          style={{ marginBottom: 12 }}
+        />
+        {errors.age && <HelperText type="error">Idade inválida</HelperText>}
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
-        <Text style={{ marginRight: 16 }}>Gender:</Text>
-        <RadioButton.Group onValueChange={(v) => handleChange('gender', v)} value={userData.gender}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <RadioButton value="male" />
-              <Text>Male</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+          <Text style={{ marginRight: 16 }}>Gênero:</Text>
+          <RadioButton.Group onValueChange={(v) => handleChange('gender', v)} value={userData.gender}>
+            <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <RadioButton value="male" />
+                <Text>Masculino</Text>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
+                <RadioButton value="female" />
+                <Text>Feminino</Text>
+              </View>
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
-              <RadioButton value="female" />
-              <Text>Female</Text>
-            </View>
+          </RadioButton.Group>
+        </View>
+
+        {/* Medidas Corporais */}
+        <Text variant="titleSmall" style={{ marginBottom: 8, color: light.primary }}>
+          Medidas Corporais
+        </Text>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <TextInput
+            label="Peso atual (kg) *"
+            value={userData.currentWeight}
+            onChangeText={(text) => handleChange('currentWeight', text.replace(/[^0-9.]/g, ''))}
+            mode="outlined"
+            keyboardType="numeric"
+            error={errors.currentWeight}
+            style={{ flex: 1, marginRight: 8, marginBottom: 12 }}
+          />
+
+          <TextInput
+            label="Peso desejado (kg) *"
+            value={userData.targetWeight}
+            onChangeText={(text) => handleChange('targetWeight', text.replace(/[^0-9.]/g, ''))}
+            mode="outlined"
+            keyboardType="numeric"
+            error={errors.targetWeight}
+            style={{ flex: 1, marginBottom: 12 }}
+          />
+        </View>
+
+        <TextInput
+          label="Altura (cm) *"
+          value={userData.height}
+          onChangeText={(text) => handleChange('height', text.replace(/[^0-9]/g, ''))}
+          mode="outlined"
+          keyboardType="numeric"
+          error={errors.height}
+          style={{ marginBottom: 12 }}
+        />
+        {errors.height && <HelperText type="error">Altura inválida</HelperText>}
+
+        {/* Preferências Alimentares */}
+        <Text variant="titleSmall" style={{ marginBottom: 8, color: light.primary }}>
+          Preferências Alimentares
+        </Text>
+
+        <TextInput
+          label="Refeições por dia *"
+          value={userData.mealsPerDay}
+          onChangeText={(text) => handleChange('mealsPerDay', text.replace(/[^0-9]/g, ''))}
+          mode="outlined"
+          keyboardType="numeric"
+          style={{ marginBottom: 12 }}
+        />
+
+        <TextInput
+          label="Restrições alimentares"
+          value={userData.dietaryRestrictions}
+          onChangeText={(text) => handleChange('dietaryRestrictions', text)}
+          mode="outlined"
+          style={{ marginBottom: 12 }}
+          placeholder="Ex.: Vegetariano, intolerância à lactose"
+        />
+
+        <TextInput
+          label="Condições de saúde"
+          value={userData.healthConditions}
+          onChangeText={(text) => handleChange('healthConditions', text)}
+          mode="outlined"
+          style={{ marginBottom: 16 }}
+          placeholder="Ex.: Diabetes, hipertensão"
+        />
+
+        {/* Nível de Atividade Física */}
+        <Text variant="titleSmall" style={{ marginBottom: 8, color: light.primary }}>
+          Nível de Atividade Física
+        </Text>
+
+        <RadioButton.Group onValueChange={(v) => handleChange('fitnessLevel', v)} value={userData.fitnessLevel}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+            <RadioButton value="sedentary" />
+            <Text>Sedentário (pouco ou nenhum exercício)</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
+            <RadioButton value="moderate" />
+            <Text>Moderadamente ativo (exercício 1–3x/semana)</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <RadioButton value="active" />
+            <Text>Muito ativo (exercício 4+ vezes/semana)</Text>
           </View>
         </RadioButton.Group>
-      </View>
 
-      {/* Body Measurements */}
-      <Text variant="titleSmall" style={{ marginBottom: 8, color: colors.primary }}>
-        Body Measurements
-      </Text>
-
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <TextInput
-          label="Current weight (kg) *"
-          value={userData.currentWeight}
-          onChangeText={(text) => handleChange('currentWeight', text.replace(/[^0-9.]/g, ''))}
-          mode="outlined"
-          keyboardType="numeric"
-          error={errors.currentWeight}
-          style={{ flex: 1, marginRight: 8, marginBottom: 12 }}
-        />
-
-        <TextInput
-          label="Target weight (kg) *"
-          value={userData.targetWeight}
-          onChangeText={(text) => handleChange('targetWeight', text.replace(/[^0-9.]/g, ''))}
-          mode="outlined"
-          keyboardType="numeric"
-          error={errors.targetWeight}
-          style={{ flex: 1, marginBottom: 12 }}
-        />
-      </View>
-
-      <TextInput
-        label="Height (cm) *"
-        value={userData.height}
-        onChangeText={(text) => handleChange('height', text.replace(/[^0-9]/g, ''))}
-        mode="outlined"
-        keyboardType="numeric"
-        error={errors.height}
-        style={{ marginBottom: 12 }}
-      />
-      {errors.height && <HelperText type="error">Invalid height</HelperText>}
-
-      {/* Dietary Preferences */}
-      <Text variant="titleSmall" style={{ marginBottom: 8, color: colors.primary }}>
-        Dietary Preferences
-      </Text>
-
-      <TextInput
-        label="Meals per day *"
-        value={userData.mealsPerDay}
-        onChangeText={(text) => handleChange('mealsPerDay', text.replace(/[^0-9]/g, ''))}
-        mode="outlined"
-        keyboardType="numeric"
-        style={{ marginBottom: 12 }}
-      />
-
-      <TextInput
-        label="Dietary restrictions"
-        value={userData.dietaryRestrictions}
-        onChangeText={(text) => handleChange('dietaryRestrictions', text)}
-        mode="outlined"
-        style={{ marginBottom: 12 }}
-        placeholder="E.g.: Vegetarian, lactose intolerance"
-      />
-
-      <TextInput
-        label="Health conditions"
-        value={userData.healthConditions}
-        onChangeText={(text) => handleChange('healthConditions', text)}
-        mode="outlined"
-        style={{ marginBottom: 16 }}
-        placeholder="E.g.: Diabetes, hypertension"
-      />
-
-      {/* Fitness Level */}
-      <Text variant="titleSmall" style={{ marginBottom: 8, color: colors.primary }}>
-        Physical Activity Level
-      </Text>
-
-      <RadioButton.Group onValueChange={(v) => handleChange('fitnessLevel', v)} value={userData.fitnessLevel}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
-          <RadioButton value="sedentary" />
-          <Text>Sedentary (little or no exercise)</Text>
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8 }}>
-          <RadioButton value="moderate" />
-          <Text>Moderately active (exercise 1–3x/week)</Text>
-        </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <RadioButton value="active" />
-          <Text>Very active (exercise 4+ times/week)</Text>
-        </View>
-      </RadioButton.Group>
-
-      <Button mode="contained" onPress={saveProfile} style={{ marginTop: 24 }} disabled={!validateForm()}>
-        Save Profile
-      </Button>
-    </ScrollView>
+        <Button mode="contained" onPress={saveProfile} style={{ marginTop: 24 }} disabled={!validateForm()}>
+          Salvar Perfil
+        </Button>
+      </ScrollView>
+    </AppContainer>
   );
 };
 

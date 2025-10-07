@@ -12,6 +12,19 @@
 		59E842708D3679D37413DDAD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		21BBC441FB684E9E9900547B /* andada.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F57CF425BCE47DA98EBD848 /* andada.ttf */; };
+		59299B4CD9714F8099DC08A3 /* andada-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4852AA6CAE85492A8D676AF1 /* andada-bold.ttf */; };
+		493A6D68F22A43E38E5073AA /* andada-italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F19D1C73CE1415AB33BF1FA /* andada-italic.ttf */; };
+		57DBEF938EDF444D9973CFB2 /* AndadaPro-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF05762202A647048EC34C2E /* AndadaPro-Bold.ttf */; };
+		CF290896C93747D096DCF387 /* AndadaPro-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEFB5AFAB4774F64AD391B7A /* AndadaPro-BoldItalic.ttf */; };
+		BDDF57559E22453AB6154660 /* AndadaPro-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D135ED9998494DE188E0B705 /* AndadaPro-ExtraBold.ttf */; };
+		297C9A9FA754459291277B55 /* AndadaPro-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 473C6024B5B24E96A84E526B /* AndadaPro-ExtraBoldItalic.ttf */; };
+		B8DAE7FD939E488F83A37B21 /* AndadaPro-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 325A47C598754C428CAAE7DF /* AndadaPro-Italic.ttf */; };
+		D00D46C9C5B54F458044F04F /* AndadaPro-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B55D54B6CCB849DCA65ACABB /* AndadaPro-Medium.ttf */; };
+		27458608B2FE42F585BC51E3 /* AndadaPro-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 257E6111C89F4CABAD8794F1 /* AndadaPro-MediumItalic.ttf */; };
+		C2C0620B363742DEA1543FC0 /* AndadaPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 113688FFC3F24D32AE69CB79 /* AndadaPro-Regular.ttf */; };
+		9B6161D5092741269D770B6F /* AndadaPro-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 124F96B962CD45A4980AFC3D /* AndadaPro-SemiBold.ttf */; };
+		D986285E46FB41768A002B95 /* AndadaPro-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 390B0865D7934319B39DEA48 /* AndadaPro-SemiBoldItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +38,19 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = jejuando/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = jejuando/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		1F57CF425BCE47DA98EBD848 /* andada.ttf */ = {isa = PBXFileReference; name = "andada.ttf"; path = "../assets/fonts/andada.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4852AA6CAE85492A8D676AF1 /* andada-bold.ttf */ = {isa = PBXFileReference; name = "andada-bold.ttf"; path = "../assets/fonts/andada-bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7F19D1C73CE1415AB33BF1FA /* andada-italic.ttf */ = {isa = PBXFileReference; name = "andada-italic.ttf"; path = "../assets/fonts/andada-italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DF05762202A647048EC34C2E /* AndadaPro-Bold.ttf */ = {isa = PBXFileReference; name = "AndadaPro-Bold.ttf"; path = "../assets/fonts/AndadaPro-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AEFB5AFAB4774F64AD391B7A /* AndadaPro-BoldItalic.ttf */ = {isa = PBXFileReference; name = "AndadaPro-BoldItalic.ttf"; path = "../assets/fonts/AndadaPro-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D135ED9998494DE188E0B705 /* AndadaPro-ExtraBold.ttf */ = {isa = PBXFileReference; name = "AndadaPro-ExtraBold.ttf"; path = "../assets/fonts/AndadaPro-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		473C6024B5B24E96A84E526B /* AndadaPro-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; name = "AndadaPro-ExtraBoldItalic.ttf"; path = "../assets/fonts/AndadaPro-ExtraBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		325A47C598754C428CAAE7DF /* AndadaPro-Italic.ttf */ = {isa = PBXFileReference; name = "AndadaPro-Italic.ttf"; path = "../assets/fonts/AndadaPro-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B55D54B6CCB849DCA65ACABB /* AndadaPro-Medium.ttf */ = {isa = PBXFileReference; name = "AndadaPro-Medium.ttf"; path = "../assets/fonts/AndadaPro-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		257E6111C89F4CABAD8794F1 /* AndadaPro-MediumItalic.ttf */ = {isa = PBXFileReference; name = "AndadaPro-MediumItalic.ttf"; path = "../assets/fonts/AndadaPro-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		113688FFC3F24D32AE69CB79 /* AndadaPro-Regular.ttf */ = {isa = PBXFileReference; name = "AndadaPro-Regular.ttf"; path = "../assets/fonts/AndadaPro-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		124F96B962CD45A4980AFC3D /* AndadaPro-SemiBold.ttf */ = {isa = PBXFileReference; name = "AndadaPro-SemiBold.ttf"; path = "../assets/fonts/AndadaPro-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		390B0865D7934319B39DEA48 /* AndadaPro-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "AndadaPro-SemiBoldItalic.ttf"; path = "../assets/fonts/AndadaPro-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +101,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				2FD4C1A1C9B64C389104017F /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -97,6 +124,27 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		2FD4C1A1C9B64C389104017F /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				1F57CF425BCE47DA98EBD848 /* andada.ttf */,
+				4852AA6CAE85492A8D676AF1 /* andada-bold.ttf */,
+				7F19D1C73CE1415AB33BF1FA /* andada-italic.ttf */,
+				DF05762202A647048EC34C2E /* AndadaPro-Bold.ttf */,
+				AEFB5AFAB4774F64AD391B7A /* AndadaPro-BoldItalic.ttf */,
+				D135ED9998494DE188E0B705 /* AndadaPro-ExtraBold.ttf */,
+				473C6024B5B24E96A84E526B /* AndadaPro-ExtraBoldItalic.ttf */,
+				325A47C598754C428CAAE7DF /* AndadaPro-Italic.ttf */,
+				B55D54B6CCB849DCA65ACABB /* AndadaPro-Medium.ttf */,
+				257E6111C89F4CABAD8794F1 /* AndadaPro-MediumItalic.ttf */,
+				113688FFC3F24D32AE69CB79 /* AndadaPro-Regular.ttf */,
+				124F96B962CD45A4980AFC3D /* AndadaPro-SemiBold.ttf */,
+				390B0865D7934319B39DEA48 /* AndadaPro-SemiBoldItalic.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -161,6 +209,19 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				59E842708D3679D37413DDAD /* PrivacyInfo.xcprivacy in Resources */,
+				21BBC441FB684E9E9900547B /* andada.ttf in Resources */,
+				59299B4CD9714F8099DC08A3 /* andada-bold.ttf in Resources */,
+				493A6D68F22A43E38E5073AA /* andada-italic.ttf in Resources */,
+				57DBEF938EDF444D9973CFB2 /* AndadaPro-Bold.ttf in Resources */,
+				CF290896C93747D096DCF387 /* AndadaPro-BoldItalic.ttf in Resources */,
+				BDDF57559E22453AB6154660 /* AndadaPro-ExtraBold.ttf in Resources */,
+				297C9A9FA754459291277B55 /* AndadaPro-ExtraBoldItalic.ttf in Resources */,
+				B8DAE7FD939E488F83A37B21 /* AndadaPro-Italic.ttf in Resources */,
+				D00D46C9C5B54F458044F04F /* AndadaPro-Medium.ttf in Resources */,
+				27458608B2FE42F585BC51E3 /* AndadaPro-MediumItalic.ttf in Resources */,
+				C2C0620B363742DEA1543FC0 /* AndadaPro-Regular.ttf in Resources */,
+				9B6161D5092741269D770B6F /* AndadaPro-SemiBold.ttf in Resources */,
+				D986285E46FB41768A002B95 /* AndadaPro-SemiBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

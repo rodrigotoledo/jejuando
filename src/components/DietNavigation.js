@@ -3,7 +3,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 
-
 import moment from 'moment';
 
 const DietNavigation = ({ selectedDate, setSelectedDate, isFastingDay, userProfile }) => {
@@ -26,7 +25,7 @@ const DietNavigation = ({ selectedDate, setSelectedDate, isFastingDay, userProfi
           {moment(selectedDate).format('DD/MM/YYYY')}
         </Text>
         <Text className="text-sm text-gray-600">
-          {isFastingDay ? 'Fasting Day':' Normal Day'} | {userProfile?.mealsPerDay} meals
+          {isFastingDay ? 'Dia de Jejum' : 'Dia Normal'} | {userProfile?.mealsPerDay} refeições
         </Text>
       </View>
 
