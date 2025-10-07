@@ -99,4 +99,5 @@ To learn more about React Native, take a look at the following resources:
 ```bash
 adb reverse tcp:8081 tcp:8081
 adb reverse tcp:8080 tcp:8080
+emulator -avd Medium_Phone_API_36.0 -dns-server 8.8.8.8,8.8.4.4
 ```
