@@ -3,6 +3,7 @@ import { View, ScrollView } from 'react-native';
 import { Alert, Text, TextInput, Button, RadioButton, HelperText } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { light } from '../utils/colors';
 import AppContainer from '../components/AppContainer';
 import TextContainer from '../components/TextContainer';
@@ -270,7 +271,15 @@ const ProfileScreen = () => {
           </View>
         </RadioButton.Group>
 
-        <Button mode="contained" onPress={saveProfile} style={{ marginTop: 24 }} disabled={!validateForm()}>
+        <Button
+          mode="contained"
+          icon={({ size, color }) => (
+            <MaterialCommunityIcons name="content-save" size={size} color={color} />
+          )}
+          onPress={saveProfile}
+          className="mt-6 rounded-lg"
+          disabled={!validateForm()}
+        >
           Salvar Perfil
         </Button>
       </ScrollView>

@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import moment from 'moment';
 import notifee, { TriggerType } from '@notifee/react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Button, useTheme, RadioButton } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -286,8 +287,11 @@ const FastingScreen = () => {
 
         <Button
           mode="contained"
+          icon={({ size, color }) => (
+            <MaterialCommunityIcons name="timer-outline" size={size} color={color} />
+          )}
           onPress={() => startFasting(Number(fastingHours))}
-          style={{ marginTop: 16 }}
+          className="mt-6 rounded-lg"
         >
           Iniciar Jejum Intermitente com {fastingHours}h
         </Button>
