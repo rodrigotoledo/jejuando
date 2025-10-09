@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ScrollView, Alert } from 'react-native';
 import { Card, Button, ActivityIndicator } from 'react-native-paper';
 import CheckBox from 'react-native-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,6 +10,7 @@ import Config from 'react-native-config'
 import OpenAI from 'openai';
 import AppContainer from '../components/AppContainer';
 import TextContainer from '../components/TextContainer';
+import { callGPTAPI } from '../utils/openai';
 
 
 const DietScreen = ({ navigation }) => {
@@ -18,12 +19,12 @@ const DietScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
   const [isFastingDay, setIsFastingDay] = useState(false);
-  const openai = new OpenAI({ apiKey: Config.API_GPT_KEY });
-
+  let openai = new OpenAI({ apiKey: Config.API_GPT_KEY });
+  openai.baseURL = 'https://api.openai.com/v1';
+  openai.buildURL = (path) => `${openai.baseURL}${path.startsWith('/') ? path : '/' + path}`;
   const fastingDays = [0, 3]; // Exemplo: Domingo e Quarta
 
   useEffect(() => {
-    console.log(Config.API_GPT_KEY);
     loadUserProfile();
   }, []);
 
@@ -105,7 +106,7 @@ const DietScreen = ({ navigation }) => {
     } catch (error) {
       console.error('Erro ao gerar plano:', error);
       // Plano de fallback caso a API falhe
-      setDietPlan(getFallbackDietPlan(userProfile, isFastingDay));
+      setDietPlan(getFallbackDietPlan(isFastingDay));
     } finally {
       setLoading(false);
     }
@@ -133,7 +134,7 @@ const DietScreen = ({ navigation }) => {
     - ${profile.mealsPerDay} refeições principais
     - Calorias totais baseadas no déficit necessário para atingir o peso alvo
     
-    Retorne APENAS o JSON, sem comentários ou markdown MAS TEM QUE SER EM INGLES.`;
+    Retorne APENAS o JSON, sem comentários ou markdown MAS TEM QUE SER EM PORTUGUES.`;
   };
 
   const getActivityLevelText = (level) => {
@@ -143,18 +144,6 @@ const DietScreen = ({ navigation }) => {
       active: 'Muito ativo'
     };
     return levels[level] || level;
-  };
-
-  const callGPTAPI = async (prompt) => {
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        { role: 'user', content: prompt },
-      ],
-      temperature: 0.7
-    });
-      
-    return completion.choices[0].message.content;
   };
 
   const processGPTResponse = (response) => {
@@ -171,7 +160,7 @@ const DietScreen = ({ navigation }) => {
     }
   };
 
-  const getFallbackDietPlan = (profile, fasting) => {
+  const getFallbackDietPlan = (fasting) => {
     // Implementação simplificada para exemplo
     const baseCalories = fasting ? 1600 : 1800;
     return {
@@ -288,12 +277,16 @@ const DietScreen = ({ navigation }) => {
             </ScrollView>
           </>
         )}
-        <TouchableOpacity
-          onPress={generateDietPlan} className="flex-row items-center justify-center bg-amber-600 px-4 py-2 rounded-full my-4"
+        <Button
+          mode="contained"
+          onPress={generateDietPlan}
+          className="mb-4 rounded-lg"
+          icon={({ size, color }) => (
+            <MaterialDesignIcons name="refresh" size={size} color={color} />
+          )}
         >
-            <MaterialDesignIcons name="refresh" size={20} color="#fff"  />
-            <Text className="text-white ml-2">Gerar um novo plano</Text>
-        </TouchableOpacity>
+          Gerar um novo plano
+        </Button>
 
     </View>
   </AppContainer>
