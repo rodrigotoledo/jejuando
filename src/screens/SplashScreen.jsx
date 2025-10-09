@@ -5,19 +5,19 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   withSequence,
-  runOnJS,
 } from 'react-native-reanimated';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { light } from '../utils/colors';
 import { useNavigation } from '@react-navigation/native';
+import { Button } from 'react-native-paper';
+import TextContainer from '../components/TextContainer';
 
 const { width, height } = Dimensions.get('window');
 
 const SplashScreen = () => {
   const navigation = useNavigation();
 
-  // Define os cantos fixos
-  const factor = 0.4; // quanto menor, mais para dentro da tela
+  const factor = 0.4;
   const margin = 100;
 
   const corners = [
@@ -27,7 +27,6 @@ const SplashScreen = () => {
     { x: width * factor - margin, y: height * factor - margin }, // Bottom-right
   ];
 
-  // Marcas com cantos específicos
   const brands = [
     {
       image: require('../assets/Belles-Logotipo-Oficial-Preto.webp'),
@@ -38,7 +37,6 @@ const SplashScreen = () => {
     { icon: 'flower', position: useSharedValue({ x: 0, y: 0 }) },
   ];
 
-  // Estilos animados
   const animatedStyles = brands.map((brand) =>
     useAnimatedStyle(() => ({
       transform: [
@@ -48,14 +46,12 @@ const SplashScreen = () => {
     }))
   );
 
-  // Opacidade do logo
   const logoOpacity = useSharedValue(0);
   const logoAnimatedStyle = useAnimatedStyle(() => ({
     opacity: logoOpacity.value,
   }));
 
   useEffect(() => {
-    // Cada marca vai para o canto correspondente
     brands.forEach((brand, index) => {
       const targetPos = corners[index % corners.length];
       brand.position.value = withTiming(
@@ -65,15 +61,13 @@ const SplashScreen = () => {
           if (index === brands.length - 1) {
             logoOpacity.value = withSequence(
               withTiming(1, { duration: 500 }),
-              withTiming(1, { duration: 2000 }, () => {
-                runOnJS(navigation.navigate)('Profile');
-              })
+              withTiming(1, { duration: 2000 })
             );
           }
         }
       );
     });
-  }, [navigation]);
+  }, []);
 
   return (
     <View className="flex-1 bg-background items-center justify-center">
@@ -88,20 +82,34 @@ const SplashScreen = () => {
           ) : (
             <Image
               source={brand.image}
-              className="w-1/4" // 25% da largura da tela
-              style={{ width: width * 0.25, height: undefined, aspectRatio: 1 }} // Garante proporção
+              style={{ width: width * 0.25, height: undefined, aspectRatio: 1 }}
               resizeMode="contain"
             />
           )}
         </Animated.View>
       ))}
 
-      <Animated.View style={[{ position: 'absolute' }, logoAnimatedStyle]}>
+      {/* Logo central */}
+      <Animated.View style={[{ position: 'absolute', alignItems: 'center' }, logoAnimatedStyle]}>
         <Image
           source={require('../assets/logo.png')}
-          style={{ width: width * 0.33, height: undefined, aspectRatio: 1 }} // 33% da largura da tela
+          style={{ width: width * 0.33, height: undefined, aspectRatio: 1 }}
           resizeMode="contain"
         />
+
+        <TextContainer>
+          Filó Mais Você
+        </TextContainer>
+
+        {/* Botão entrar */}
+        <Button
+          mode="contained"
+          icon="login"
+          onPress={() => navigation.navigate('Profile')}
+          className="mt-6 rounded-lg"
+        >
+          Entrar no sistema
+        </Button>
       </Animated.View>
     </View>
   );

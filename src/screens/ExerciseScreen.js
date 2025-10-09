@@ -219,8 +219,8 @@ Com base no seu perfil, mantenha consistência por 4-6 semanas para ver resultad
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center">
-        <ActivityIndicator animating={true} color="#37474F" size="large" />
-        <Text className="mt-4 text-gray-600">Gerando seu plano de exercícios...</Text>
+        <ActivityIndicator animating={true} size="large" />
+        <Text className="mt-4 text-secondary">Gerando seu plano de exercícios...</Text>
       </View>
     );
   }

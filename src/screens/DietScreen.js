@@ -209,8 +209,8 @@ const DietScreen = ({ navigation }) => {
   if (loading) {
     return (
       <View className="flex-1 justify-center items-center">
-        <ActivityIndicator animating={true} color="#37474F" size="large" />
-        <Text className="mt-4 text-gray-600">Gerando seu plano de dieta...</Text>
+        <ActivityIndicator animating={true} size="large" />
+        <Text className="mt-4 text-secondary">Gerando seu plano de dieta...</Text>
       </View>
     );
   }
@@ -218,7 +218,7 @@ const DietScreen = ({ navigation }) => {
     if (!userProfile) {
     return (
       <View className="flex-1 justify-center items-center">
-        <Text className="text-lg text-gray-700">Perfil não encontrado</Text>
+        <Text className="text-lg text-secondary">Perfil não encontrado</Text>
         <Button 
           mode="contained"
           onPress={() => navigation.navigate('Profile')}
@@ -280,7 +280,7 @@ const DietScreen = ({ navigation }) => {
         <Button
           mode="contained"
           onPress={generateDietPlan}
-          className="mb-4 rounded-lg"
+          className="mt-6 rounded-lg"
           icon={({ size, color }) => (
             <MaterialDesignIcons name="refresh" size={size} color={color} />
           )}
