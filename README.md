@@ -12,7 +12,7 @@ To start the Metro dev server, run the following command from the root of your R
 
 ```sh
 # Using npm
-npm start
+npm start --reset-cache
 
 # OR using Yarn
 yarn start
@@ -86,6 +86,16 @@ You've successfully run and modified your React Native App. :partying_face:
 
 If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
+Maybe you need in some Linux distributions set some default values in `.bashrc`
+
+```
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export PATH=$ANDROID_SDK_ROOT/emulator:$ANDROID_SDK_ROOT/platform-tools:$PATH
+```
+
 # Learn More
 
 To learn more about React Native, take a look at the following resources:
@@ -96,8 +106,9 @@ To learn more about React Native, take a look at the following resources:
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
 
-
-```
+```bash
 adb reverse tcp:8081 tcp:8081
 adb reverse tcp:8080 tcp:8080
+emulator -list-avds
+emulator -avd Medium_Phone_API_36.0 -dns-server 8.8.8.8,8.8.4.4
 ```

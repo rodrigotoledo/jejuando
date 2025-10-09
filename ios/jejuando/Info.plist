@@ -32,7 +32,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -52,6 +52,19 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialCommunityIcons.ttf</string>
+		<string>andada.ttf</string>
+		<string>andada-bold.ttf</string>
+		<string>andada-italic.ttf</string>
+		<string>AndadaPro-Bold.ttf</string>
+		<string>AndadaPro-BoldItalic.ttf</string>
+		<string>AndadaPro-ExtraBold.ttf</string>
+		<string>AndadaPro-ExtraBoldItalic.ttf</string>
+		<string>AndadaPro-Italic.ttf</string>
+		<string>AndadaPro-Medium.ttf</string>
+		<string>AndadaPro-MediumItalic.ttf</string>
+		<string>AndadaPro-Regular.ttf</string>
+		<string>AndadaPro-SemiBold.ttf</string>
+		<string>AndadaPro-SemiBoldItalic.ttf</string>
 	</array>
 </dict>
 </plist>

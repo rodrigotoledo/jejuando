@@ -1,0 +1,57 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/AndadaPro-Bold.ttf",
+      "sha1": "d47185c5fd28d674142a95af97917275a7bde0aa"
+    },
+    {
+      "path": "assets/fonts/AndadaPro-BoldItalic.ttf",
+      "sha1": "36dc30366d7a89705d2c0f7d2068ece17a1afe93"
+    },
+    {
+      "path": "assets/fonts/AndadaPro-ExtraBold.ttf",
+      "sha1": "f01855afff909f3340b5b05b95e259d7776a92f3"
+    },
+    {
+      "path": "assets/fonts/AndadaPro-ExtraBoldItalic.ttf",
+      "sha1": "4f243562c8eb21623d49fe72fd135ad7d8eb8431"
+    },
+    {
+      "path": "assets/fonts/AndadaPro-Italic.ttf",
+      "sha1": "6b0e3adae14408faef30f61a70e3b9232146d88b"
+    },
+    {
+      "path": "assets/fonts/AndadaPro-Medium.ttf",
+      "sha1": "da143208a87494e3f527aa12250720a7518bbe58"
+    },
+    {
+      "path": "assets/fonts/AndadaPro-MediumItalic.ttf",
+      "sha1": "61b0d4a854d3878c46292b56b75b467fe3a9d9d9"
+    },
+    {
+      "path": "assets/fonts/AndadaPro-Regular.ttf",
+      "sha1": "a6b9abda6619085d16d2571739d96166d597f4f3"
+    },
+    {
+      "path": "assets/fonts/AndadaPro-SemiBold.ttf",
+      "sha1": "2cf8d651bc557863066ce018d6876a4556bd847a"
+    },
+    {
+      "path": "assets/fonts/AndadaPro-SemiBoldItalic.ttf",
+      "sha1": "a7a784bdfce4872c853b016334f02410ab3db762"
+    },
+    {
+      "path": "assets/fonts/andada-bold.ttf",
+      "sha1": "a2681781e6432f6d829814f9f8dd197044fd512b"
+    },
+    {
+      "path": "assets/fonts/andada-italic.ttf",
+      "sha1": "a2681781e6432f6d829814f9f8dd197044fd512b"
+    },
+    {
+      "path": "assets/fonts/andada.ttf",
+      "sha1": "a2681781e6432f6d829814f9f8dd197044fd512b"
+    }
+  ]
+}
