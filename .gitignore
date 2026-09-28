@@ -76,3 +76,18 @@ yarn-error.log
 .env.development
 .env.production
 .env
+# AI / Agent & BMAD tools
+.agents/
+skills/
+skills-lock.json
+.claude/
+.commandcode/
+.continue/
+.reasonix/
+.vibe/
+.zcode/
+.codex/
+_bmad/custom/config.user.toml
+_bmad/custom/*.user.*
+.vscode/settings.json
+graphify-out
